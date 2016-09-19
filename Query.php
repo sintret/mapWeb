@@ -11,12 +11,29 @@ include 'Model.php';
 
 class Query {
 
-    public static function kabupatens() {
+    public static function kabupatens()
+    {
         $query = new Model();
         $query->find("kabupaten");
         $query->orderBy("name asc");
 
         //echo 'test'.$query->statement();exit(0);
+        $result = $query->all();
+        return $result;
+    }
+
+    public static function kecamatans($kabupatenId = NULL)
+    {
+
+        $query = new Model();
+        $query->find("kecamatan");
+
+        if ($kabupatenId)
+            $query->where(['kabupatenId' => $kabupatenId]);
+
+        $query->orderBy("name asc");
+        
+         //echo 'test: '.$query->statement();exit(0);
         $result = $query->all();
         return $result;
     }

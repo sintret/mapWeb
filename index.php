@@ -47,26 +47,30 @@ include 'Query.php';
                 <div class="col-md-3">
                     <div class="well">
                         <form>
-                            <?php //echo "<pre>"; print_r(Query::kabupatens());?>
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten</label>
-                                <select id="kabupaten" class="form-control" >
+                                <select id="kabupaten" class="form-control" data-url="ajax.php">
                                     <?php
                                     $kabupatens = Query::kabupatens();
-                                    
+                                    $num = 1;
                                     if ($kabupatens)
                                         foreach ($kabupatens as $kabupaten) {
                                             ?>
-                                            <option value="<?php echo $kabupaten->id;?>"><?php echo $kabupaten->name;?></option>
-                                        <?php } ?>
+                                            <option value="<?php echo $kabupaten->id; ?>"  <?php if ($num == 1) echo "selected"; ?>><?php echo $kabupaten->name; ?></option>
+                                            <?php $num++;
+                                        } ?>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="kabupaten">Kecamatan</label>
-                                <select id="kabupaten" class="form-control" >
-                                    <option value="1">Bengkalis</option>
-                                    <option value="1">Ternate</option>
-                                    <option value="1">Tidore</option>
+                                <label for="kecamatan">Kecamatan</label>
+                                <select id="kecamatan" class="form-control" data-url="ajax.php">
+                                    <?php
+                                    $kecamatans = Query::kecamatans(1107);
+                                    if ($kabupatens)
+                                        foreach ($kecamatans as $kecamatans) {
+                                            ?>
+                                            <option value="<?php echo $kecamatans->id; ?>"><?php echo $kecamatans->name; ?></option>
+    <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -103,6 +107,7 @@ include 'Query.php';
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="js/jquery-3.1.0.min.js"></script>
         <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <script src="js/form.js"></script>
 
     </body>
 </html>
