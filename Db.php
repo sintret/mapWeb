@@ -17,7 +17,7 @@ class Db {
     protected static $_instance = null;
     protected static $username = "root";
     protected static $password = "";
-    protected static $dsn = "mysql:host=localhost;dbname=test";
+    protected static $dsn = "mysql:host=localhost;dbname=agis";
 
     /**
      * Returns singleton instance

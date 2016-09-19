@@ -1,3 +1,6 @@
+<?php
+include 'Query.php';
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -44,12 +47,18 @@
                 <div class="col-md-3">
                     <div class="well">
                         <form>
+                            <?php //echo "<pre>"; print_r(Query::kabupatens());?>
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten</label>
                                 <select id="kabupaten" class="form-control" >
-                                    <option value="1">Bengkalis</option>
-                                    <option value="1">Ternate</option>
-                                    <option value="1">Tidore</option>
+                                    <?php
+                                    $kabupatens = Query::kabupatens();
+                                    
+                                    if ($kabupatens)
+                                        foreach ($kabupatens as $kabupaten) {
+                                            ?>
+                                            <option value="<?php echo $kabupaten->id;?>"><?php echo $kabupaten->name;?></option>
+                                        <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -68,7 +77,7 @@
                                     <option value="1">Tidore</option>
                                 </select>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>
                     </div>
