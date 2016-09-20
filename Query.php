@@ -33,7 +33,6 @@ class Query {
 
         $query->orderBy("name asc");
         
-         //echo 'test: '.$query->statement();exit(0);
         $result = $query->all();
         return $result;
     }

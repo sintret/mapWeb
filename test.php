@@ -6,19 +6,12 @@ ini_set("dispaly_errors", 1);
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-include 'Model.php';
-$query = new Model();
-
-//$query->find('article')->where(['id' => 8]);
-
-$query->find('article');
-//$query->where(['id' => 8]);
-$r = $query->all();
-
-echo "<pre>";
-print_r($r);
+include 'Query.php';
 
 
-echo $r->id;
+$kecamatans = Query::kecamatans();
 
-echo "test";
+if($kecamatans)
+    foreach ($kecamatans as $kecamatans){
+        
+    }

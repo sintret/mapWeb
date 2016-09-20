@@ -57,20 +57,22 @@ include 'Query.php';
                                         foreach ($kabupatens as $kabupaten) {
                                             ?>
                                             <option value="<?php echo $kabupaten->id; ?>"  <?php if ($num == 1) echo "selected"; ?>><?php echo $kabupaten->name; ?></option>
-                                            <?php $num++;
-                                        } ?>
+                                            <?php
+                                            $num++;
+                                        }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="kecamatan">Kecamatan</label>
                                 <select id="kecamatan" class="form-control" data-url="ajax.php">
                                     <?php
-                                    $kecamatans = Query::kecamatans(1107);
+                                    $kecamatans = Query::kecamatans(6303);
                                     if ($kabupatens)
                                         foreach ($kecamatans as $kecamatans) {
                                             ?>
                                             <option value="<?php echo $kecamatans->id; ?>"><?php echo $kecamatans->name; ?></option>
-    <?php } ?>
+                                        <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">

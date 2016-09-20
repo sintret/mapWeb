@@ -1,4 +1,5 @@
 <?php
+
 include 'Query.php';
 $kabupatenId = $_POST['kabupatenId'];
 $kecamatanId = $_POST['kecamatanId'];
@@ -12,7 +13,7 @@ switch ($model) :
         break;
     case 'desa': echo desa();
         break;
-    
+
 endswitch;
 
 function kabupaten()
@@ -29,7 +30,7 @@ function kecamatan($kabupatenId)
     $kecamatans = Query::kecamatans($kabupatenId);
     if ($kecamatans)
         foreach ($kecamatans as $k => $v) {
-            $html .= '<option value="'.$v->id.'">'.$v->name.'</option>';
+            $html .= '<option value="' . $v->id . '">' . $v->name . '</option>';
         }
 
     return $html;
