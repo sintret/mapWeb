@@ -15,9 +15,9 @@ class Db {
      * @var PDOConnection
      */
     protected static $_instance = null;
-    protected static $username = "root";
-    protected static $password = "";
-    protected static $dsn = "mysql:host=localhost;dbname=agis";
+    protected static $username = "sugeng";
+    protected static $password = "sugeng12356";
+    protected static $dsn = "mysql:host=localhost;dbname=gis";
 
     /**
      * Returns singleton instance
