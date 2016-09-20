@@ -27,21 +27,29 @@ function kecamatan($kabupatenId)
 {
     $html = '';
     $kecamatans = Query::kecamatans($kabupatenId);
+    $num = 1;
     if ($kecamatans)
         foreach ($kecamatans as $k => $v) {
-            $html .= '<option value="' . $v->id . '">' . $v->name . '</option>';
+            $selected = $num == 1 ? ' selected ' : '';
+            $html .= '<option value="' . $v->id . '" ' . $selected . ' >' . $v->name . '</option>';
+
+            $num++;
         }
 
     return $html;
 }
 
-function desa()
+function desa($kecamatanId)
 {
     $html = '';
     $desas = Query::desas($kecamatanId);
+    $num = 1;
     if ($desas)
         foreach ($desas as $k => $v) {
-            $html .= '<option value="' . $v->id . '">' . $v->name . '</option>';
+            $selected = $num == 1 ? ' selected ' : '';
+            $html .= '<option value="' . $v->id . '"   ' . $selected . '>' . $v->name . '</option>';
+
+            $num++;
         }
 
     return $html;

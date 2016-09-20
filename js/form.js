@@ -18,6 +18,9 @@ function kecamatan(kabupatenId) {
         data: {kabupatenId: kabupatenId, model: "kecamatan"},
         success: function (html) {
             $("#kecamatan").html(html);
+            
+            var kecamatanId = $("#kecamatan").val();
+            desa(kecamatanId);
         }
     });
 }
@@ -38,8 +41,7 @@ function desa(kecamatanId) {
 $("#kabupaten").on("change", function () {
     var kabupatenId = $(this).val();
     kecamatan(kabupatenId);
-    var kecamatanId = $("#kecamatan").val();
-    desa(kecamatanId);    
+     
 });
 
 $("#kecamatan").on("change", function () {
