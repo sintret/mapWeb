@@ -87,11 +87,22 @@ include 'Query.php';
                                         <?php } ?>
                                 </select>
                             </div>
-                            
-                            <div class="form-group">
-                                
-                                
-                            </div>
+
+                            <p>
+                            <?php
+                            $categories = Query::categories();
+                            if ($categories) {
+                                echo '<label for="category">Kategori</label>';
+                                foreach ($categories as $k => $v) {
+                                    ?>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="<?php echo $v->id;?>" value="<?php echo $v->id;?>"><?php echo $v->name;?>
+                                            </label>
+                                        </div>
+                                    </div>
+                            <?php }} ?>
 
                             <button type="submit" class="btn btn-success">Go!</button>
                         </form>
@@ -101,8 +112,8 @@ include 'Query.php';
                 <div class="col-md-9">
                     <h2>Heading</h2>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                
-                
+
+
                 </div>
 
             </div>
