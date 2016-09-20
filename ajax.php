@@ -11,9 +11,8 @@ switch ($model) :
         break;
     case 'kecamatan': echo kecamatan($kabupatenId);
         break;
-    case 'desa': echo desa();
+    case 'desa': echo desa($kecamatanId);
         break;
-
 endswitch;
 
 function kabupaten()
@@ -38,8 +37,12 @@ function kecamatan($kabupatenId)
 
 function desa()
 {
-    $array = [];
+    $html = '';
+    $desas = Query::desas($kecamatanId);
+    if ($desas)
+        foreach ($desas as $k => $v) {
+            $html .= '<option value="' . $v->id . '">' . $v->name . '</option>';
+        }
 
-
-    return $array;
+    return $html;
 }

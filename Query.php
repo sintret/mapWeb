@@ -32,7 +32,33 @@ class Query {
             $query->where(['kabupatenId' => $kabupatenId]);
 
         $query->orderBy("name asc");
-        
+
+        $result = $query->all();
+        return $result;
+    }
+
+    public static function desas($kecamatanId = NULL)
+    {
+
+        $query = new Model();
+        $query->find("desa");
+
+        if ($kecamatanId)
+            $query->where(['kecamatanId' => $kecamatanId]);
+
+        $query->orderBy("name asc");
+
+        $result = $query->all();
+        return $result;
+    }
+
+    public static function categories()
+    {
+
+        $query = new Model();
+        $query->find("category");
+        $query->orderBy("name asc");
+
         $result = $query->all();
         return $result;
     }

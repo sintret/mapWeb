@@ -5,20 +5,46 @@
  * http://sintret.com
  */
 
-var kabupatenVal = $("#kabupaten").val();
-var kecamatanVal = $("#kecamatan").val();
+var kabupatenId = $("#kabupaten").val();
+var kecamatanId = $("#kecamatan").val();
+var desaId = $("#desa").val();
 
-function kecamatan() {
+function kecamatan(kabupatenId) {
     var url = $("#kecamatan").data("url");
 
     $.ajax({
         url: url,
         type: "POST",
-        data: {kabupatenId: kabupatenVal, model: "kecamatan"},
+        data: {kabupatenId: kabupatenId, model: "kecamatan"},
         success: function (html) {
             $("#kecamatan").html(html);
         }
-
     });
 }
-//window.onload = kecamatan;
+
+function desa(kecamatanId) {
+    var url = $("#desa").data("url");
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {kecamatanId: kecamatanId, model: "desa"},
+        success: function (html) {
+            $("#desa").html(html);
+        }
+    });
+}
+
+$("#kabupaten").on("change", function () {
+    var kabupatenId = $(this).val();
+    kecamatan(kabupatenId);
+    var kecamatanId = $("#kecamatan").val();
+    desa(kecamatanId);    
+});
+
+$("#kecamatan").on("change", function () {
+    var kecamatanId = $(this).val();
+    desa(kecamatanId);    
+});
+
+window.onload = kecamatan(kabupatenId);

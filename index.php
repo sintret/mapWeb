@@ -76,15 +76,24 @@ include 'Query.php';
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="kabupaten">Desa</label>
-                                <select id="kabupaten" class="form-control" >
-                                    <option value="1">Bengkalis</option>
-                                    <option value="1">Ternate</option>
-                                    <option value="1">Tidore</option>
+                                <label for="desa">Desa</label>
+                                <select id="desa" class="form-control" data-url="ajax.php">
+                                    <?php
+                                    $desas = Query::desas(6303010);
+                                    if ($desas)
+                                        foreach ($desas as $desa) {
+                                            ?>
+                                            <option value="<?php echo $desa->id; ?>"><?php echo $desa->name; ?></option>
+                                        <?php } ?>
                                 </select>
                             </div>
+                            
+                            <div class="form-group">
+                                
+                                
+                            </div>
 
-                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button type="submit" class="btn btn-success">Go!</button>
                         </form>
                     </div>
                 </div>
@@ -92,7 +101,8 @@ include 'Query.php';
                 <div class="col-md-9">
                     <h2>Heading</h2>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                
+                
                 </div>
 
             </div>
