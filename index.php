@@ -98,7 +98,7 @@ include 'Query.php';
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" id="<?php echo $v->id;?>" value="<?php echo $v->id;?>"><?php echo $v->name;?>
+                                                <input type="checkbox" checked="" id="<?php echo $v->id;?>" value="<?php echo $v->id;?>"><?php echo $v->name;?>
                                             </label>
                                         </div>
                                     </div>

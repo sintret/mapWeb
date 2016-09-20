@@ -12,6 +12,7 @@ include 'Db.php';
 
 class Model {
 
+    public $connect;
     public $statement;
     public $selectFrom;
     public $where;
@@ -20,20 +21,18 @@ class Model {
     public $orderBy;
     public static $methods = ['where', 'find', 'limit', 'statement'];
 
-    public function __construct() {
-
-//        if (!isset(self::$_instance)) {
-//            self::$_instance = \sintret\db\Db::instance();
-//        }
-//
-//        return self::$_instance;
+    public function __construct()
+    {
+        return $this->connect = Db::instance();
     }
 
-    public function find($table) {
+    public function find($table)
+    {
         $this->selectFrom = "select * from `$table` ";
     }
 
-    public function where($array = []) {
+    public function where($array = [])
+    {
         if (count($array)) {
             $where = ' WHERE ';
             foreach ($array as $k => $v) {
@@ -45,23 +44,25 @@ class Model {
         }
     }
 
-    public function orderBy($orderBy = NULL) {
+    public function orderBy($orderBy = NULL)
+    {
         if (!empty($orderBy)) {
-            $this->orderBy = ' order by '.$orderBy.' ';
+            $this->orderBy = ' order by ' . $orderBy . ' ';
         }
     }
 
-    public function statement($statement = NULL) {
+    public function statement($statement = NULL)
+    {
         if (empty($statement))
             return $this->selectFrom . $this->where . $this->orderBy . $this->limit;
         else
             return $statement;
     }
 
-    public function one() {
+    public function one()
+    {
         $this->limit = " LIMIT 1 ";
-        $query = Db::instance();
-        $row = $query->prepare($this->statement());
+        $row = $this->connect->prepare($this->statement());
         if (count($this->arrayWhere)) {
             foreach ($this->arrayWhere as $k => $v) {
                 $row->bindParam(":" . $k, $v);
@@ -72,9 +73,9 @@ class Model {
         return $row->fetch(\PDO::FETCH_OBJ);
     }
 
-    public function all() {
-        $query = Db::instance();
-        $row = $query->prepare($this->statement());
+    public function all()
+    {
+        $row = $this->connect->prepare($this->statement());
         if (count($this->arrayWhere)) {
             foreach ($this->arrayWhere as $k => $v) {
                 $row->bindParam(":" . $k, $v);

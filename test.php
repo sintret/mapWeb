@@ -11,7 +11,13 @@ include 'Query.php';
 
 $kecamatans = Query::kecamatans();
 
-if($kecamatans)
-    foreach ($kecamatans as $kecamatans){
-        
-    }
+//echo "<pre>"; print_r($kecamatans);
+
+
+
+$query = new Model();
+$query->find("category");
+$result = $query->all();
+echo "<pre>"; print_r($result);
+
+
