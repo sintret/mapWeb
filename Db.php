@@ -15,8 +15,8 @@ class Db {
      * @var PDOConnection
      */
     protected static $_instance = null;
-    protected static $username = "sugeng";
-    protected static $password = "sugeng12356";
+    protected static $username = "root";
+    protected static $password = "";
     protected static $dsn = "mysql:host=localhost;dbname=gis";
 
     /**
