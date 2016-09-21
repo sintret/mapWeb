@@ -56,9 +56,8 @@ class Query {
     {
 
         $query = new Model();
-        $query->find("category");
-        $query->orderBy("name asc");
-
+        $query->find("category")->orderBy("name asc");
+        
         $result = $query->all();
         return $result;
     }

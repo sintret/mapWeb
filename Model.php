@@ -29,6 +29,8 @@ class Model {
     public function find($table)
     {
         $this->selectFrom = "select * from `$table` ";
+        
+        return $this;
     }
 
     public function where($array = [])
