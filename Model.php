@@ -46,10 +46,17 @@ class Model {
         return $this;
     }
 
+    public function orderBy($orderBy)
+    {
+        $this->orderBy = ' order by '.$orderBy;
+
+        return $this;
+    }
+
     public function limit($num)
     {
         $this->limit = " LIMIT " . $num . " ";
-        
+
         return $this;
     }
 
