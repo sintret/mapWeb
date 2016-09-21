@@ -42,13 +42,15 @@ class Model {
             $this->where = $where . ' ';
             $this->arrayWhere = $array;
         }
+
+        return $this;
     }
 
-    public function orderBy($orderBy = NULL)
+    public function limit($num)
     {
-        if (!empty($orderBy)) {
-            $this->orderBy = ' order by ' . $orderBy . ' ';
-        }
+        $this->limit = " LIMIT " . $num . " ";
+        
+        return $this;
     }
 
     public function statement($statement = NULL)
