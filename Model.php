@@ -4,7 +4,7 @@
  * @author : Andy Fitria
  * <sintret@gmail.com>
  * simple pdo class
- * http://sintret.com
+ * https://sintret.com
  */
 
 

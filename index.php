@@ -1,5 +1,7 @@
 <?php
 include 'Query.php';
+
+$mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
 ?>
 <html lang="en">
     <head>
@@ -89,29 +91,31 @@ include 'Query.php';
                             </div>
 
                             <p>
-                            <?php
-                            $categories = Query::categories();
-                            if ($categories) {
-                                echo '<label for="category">Kategori</label>';
-                                foreach ($categories as $k => $v) {
-                                    ?>
+                                <?php
+                                $categories = Query::categories();
+                                if ($categories) {
+                                    echo '<label for="category">Kategori</label>';
+                                    foreach ($categories as $k => $v) {
+                                        ?>
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" checked="" id="<?php echo $v->id;?>" value="<?php echo $v->id;?>"><?php echo $v->name;?>
+                                                <input type="checkbox" checked="" id="<?php echo $v->id; ?>" value="<?php echo $v->id; ?>"><?php echo $v->name; ?>
                                             </label>
                                         </div>
                                     </div>
-                            <?php }} ?>
+                                <?php }
+                            } ?>
 
-                            <button type="submit" class="btn btn-success">Go!</button>
+                            <button type="button" id="go" class="btn btn-success">Go!</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="col-md-9">
                     <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+
+                    <div id="map" style="height: 300px"></div>
 
 
                 </div>
@@ -131,6 +135,7 @@ include 'Query.php';
         <script src="js/jquery-3.1.0.min.js"></script>
         <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <script src="js/form.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $mapApi;?>&callback=goMap" async defer></script>
 
     </body>
 </html>

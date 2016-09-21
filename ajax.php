@@ -1,8 +1,9 @@
 <?php
 
 include 'Query.php';
-$kabupatenId = $_POST['kabupatenId'];
-$kecamatanId = $_POST['kecamatanId'];
+$kabupatenId = (int) $_POST['kabupatenId'];
+$kecamatanId = (int) $_POST['kecamatanId'];
+$desaId = (int) $_POST['desaId'];
 $model = trim($_POST['model']);
 
 
@@ -12,6 +13,8 @@ switch ($model) :
     case 'kecamatan': echo kecamatan($kabupatenId);
         break;
     case 'desa': echo desa($kecamatanId);
+        break;
+    case 'location' : echo location($desaId);
         break;
 endswitch;
 
@@ -53,4 +56,10 @@ function desa($kecamatanId)
         }
 
     return $html;
+}
+
+function location($desaId = NULL)
+{
+    if ($desaId)
+        echo json_encode(Query::locations($desaId));
 }
