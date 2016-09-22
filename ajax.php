@@ -4,6 +4,7 @@ include 'Query.php';
 $kabupatenId = (int) $_POST['kabupatenId'];
 $kecamatanId = (int) $_POST['kecamatanId'];
 $desaId = (int) $_POST['desaId'];
+$category = empty($_POST['category']) ? [] : $_POST['category'];
 $model = trim($_POST['model']);
 
 
@@ -14,7 +15,7 @@ switch ($model) :
         break;
     case 'desa': echo desa($kecamatanId);
         break;
-    case 'location' : echo location($desaId);
+    case 'location' : echo location($desaId, $category);
         break;
 endswitch;
 
@@ -58,8 +59,8 @@ function desa($kecamatanId)
     return $html;
 }
 
-function location($desaId = NULL)
+function location($desaId = NULL, $category = [])
 {
     if ($desaId)
-        echo json_encode(Query::locations($desaId));
+        echo json_encode(Query::locations($desaId, $category));
 }

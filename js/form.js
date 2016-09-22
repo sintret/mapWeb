@@ -10,13 +10,19 @@ var kecamatanId = $("#kecamatan").val();
 var desaId = $("#desa").val();
 var callback;
 
+
+
 function kecamatan(kabupatenId) {
     var url = $("#kecamatan").data("url");
+    var categories = [];
+    $.each($("input[name='category']:checked"), function () {
+        categories.push($(this).val());
+    });
 
     $.ajax({
         url: url,
         type: "POST",
-        data: {kabupatenId: kabupatenId, model: "kecamatan"},
+        data: {kabupatenId: kabupatenId, model: "kecamatan", category: categories},
         success: function (html) {
             $("#kecamatan").html(html);
 
@@ -29,11 +35,15 @@ function kecamatan(kabupatenId) {
 
 function desa(kecamatanId) {
     var url = $("#desa").data("url");
+    var categories = [];
+    $.each($("input[name='category']:checked"), function () {
+        categories.push($(this).val());
+    });
 
     $.ajax({
         url: url,
         type: "POST",
-        data: {kecamatanId: kecamatanId, model: "desa"},
+        data: {kecamatanId: kecamatanId, model: "desa", category: categories},
         success: function (html) {
             $("#desa").html(html);
             var desaId = $("#desa").val();
@@ -42,16 +52,23 @@ function desa(kecamatanId) {
     });
 }
 
+
+//initialize map
 var map;
 
 function goMap() {
     var url = $("#desa").data("url");
     var desaId = $("#desa").val();
+    var categories = [];
+    $.each($("input[name='category']:checked"), function () {
+        categories.push($(this).val());
+    });
+
     $.ajax({
         url: url,
         type: "POST",
         dataType: "json",
-        data: {desaId: desaId, model: "location"},
+        data: {desaId: desaId, model: "location", category: categories},
         success: function (json) {
             var locations = json.markers;
             var lat = json.lat;
@@ -83,16 +100,17 @@ function goMap() {
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(locations[i][2], locations[i][3]),
                     map: map,
-                    icon: pinImage,
+                    icon: pinColor,
                 });
 
                 google.maps.event.addListener(marker, "click", (function (marker, i) {
                     var contentString = '<div id="content">' +
                             '<div id="siteNotice">' +
                             '</div>' +
-                            '<h1 id="firstHeading" class="firstHeading">' + locations[i][0] + '</h1>' +
+                            '<h3 id="firstHeading" class="firstHeading">' + locations[i][0] + '</h3>' +
                             '<div id="bodyContent">' +
                             '<p>' + locations[i][1] + '</p>' +
+                            '<p><img width="120px" src="' + locations[i][6] + '"</p>' +
                             '</div>' +
                             '</div>';
                     return function () {
@@ -101,6 +119,7 @@ function goMap() {
                     }
                 })(marker, i));
             }
+
         }
     });
 }

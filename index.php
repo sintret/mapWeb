@@ -70,7 +70,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                                 <select id="kecamatan" class="form-control" data-url="ajax.php">
                                     <?php
                                     $kecamatans = Query::kecamatans(6303);
-                                    if ($kabupatens)
+                                    if ($kecamatans)
                                         foreach ($kecamatans as $kecamatans) {
                                             ?>
                                             <option value="<?php echo $kecamatans->id; ?>"><?php echo $kecamatans->name; ?></option>
@@ -100,7 +100,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" checked="" id="<?php echo $v->id; ?>" value="<?php echo $v->id; ?>"><?php echo $v->name; ?>
+                                                <input type="checkbox"   checked="" class="category" name="category" id="<?php echo $k; ?>" value="<?php echo $k; ?>"><?php echo $v; ?>
                                             </label>
                                         </div>
                                     </div>
@@ -115,7 +115,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                 <div class="col-md-9">
                     <h2>Heading</h2>
 
-                    <div id="map" style="height: 300px"></div>
+                    <div id="map" style="height: 500px"></div>
 
 
                 </div>
