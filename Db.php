@@ -4,7 +4,7 @@
  * @author : Andy Fitria
  * <sintret@gmail.com>
  * simple pdo class
- * http://sintret.com
+ * https://sintret.com
  */
 
 class Db {
@@ -17,7 +17,7 @@ class Db {
     protected static $_instance = null;
     protected static $username = "root";
     protected static $password = "";
-    protected static $dsn = "mysql:host=localhost;dbname=gis";
+    protected static $dsn = "mysql:host=localhost;dbname=agis";
 
     /**
      * Returns singleton instance
