@@ -113,11 +113,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                 </div>
 
                 <div class="col-md-9">
-                    <h2>Heading</h2>
-
                     <div id="map" style="height: 500px"></div>
-
-
                 </div>
 
             </div>
