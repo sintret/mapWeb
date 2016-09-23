@@ -100,7 +100,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox"   checked="" class="category" name="category" id="<?php echo $k; ?>" value="<?php echo $k; ?>"><?php echo $v; ?>
+                                                <input type="checkbox" checked="" name="category" id="<?php echo $k; ?>" value="<?php echo $k; ?>"><?php echo $v; ?>
                                             </label>
                                         </div>
                                     </div>

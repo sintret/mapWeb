@@ -19,7 +19,6 @@ class Model {
     public $limit;
     public $arrayWhere;
     public $orderBy;
-    public static $methods = ['where', 'find', 'limit', 'statement'];
 
     public function __construct()
     {

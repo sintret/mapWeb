@@ -4,7 +4,7 @@
  * @author : Andy Fitria
  * <sintret@gmail.com>
  * simple pdo class
- * http://sintret.com
+ * https://sintret.com
  */
 
 include 'Model.php';
@@ -62,7 +62,6 @@ class Query {
         $return = [];
         $query = new Model;
         $results = $query->find("location")->where(['desaId' => $desaId])->all();
-
         $categories = empty(count($category)) ? array_keys(self::categories()) : $category;
 
         if ($results)

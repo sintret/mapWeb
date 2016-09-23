@@ -2,7 +2,7 @@
  * @author : Andy Fitria
  * <sintret@gmail.com>
  * simple pdo class
- * http://sintret.com
+ * https://sintret.com
  */
 
 var kabupatenId = $("#kabupaten").val();
@@ -26,9 +26,7 @@ function kecamatan(kabupatenId) {
         success: function (html) {
             $("#kecamatan").html(html);
 
-            var kecamatanId = $("#kecamatan").val();
-            desa(kecamatanId);
-
+            desa($("#kecamatan").val());
         }
     });
 }
@@ -46,8 +44,7 @@ function desa(kecamatanId) {
         data: {kecamatanId: kecamatanId, model: "desa", category: categories},
         success: function (html) {
             $("#desa").html(html);
-            var desaId = $("#desa").val();
-            goMap(desaId);
+            goMap($("#desa").val());
         }
     });
 }
@@ -78,9 +75,8 @@ function goMap() {
 
             var lokasi = new google.maps.LatLng(parseFloat(lat), parseFloat(lon));
 
-
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
+                zoom: 13,
                 //center: {lat: parseFloat(lat), lng: parseFloat(lon)},
                 center: lokasi,
                 mapTypeId: 'terrain'
@@ -125,20 +121,18 @@ function goMap() {
 }
 
 $("#kabupaten").on("change", function () {
-    var kabupatenId = $(this).val();
-    kecamatan(kabupatenId);
-
+    
+    kecamatan($(this).val());
 });
 
 $("#kecamatan").on("change", function () {
-    var kecamatanId = $(this).val();
-    desa(kecamatanId);
+    
+    desa($(this).val());
 });
-
-window.onload = kecamatan(kabupatenId);
 
 $("#go").on("click", function () {
 
-    var desaId = $("#desa").val();
-    goMap(desaId);
+    goMap($("#desa").val());
 });
+
+window.onload = kecamatan(kabupatenId);
