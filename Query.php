@@ -63,12 +63,10 @@ class Query {
         $query = new Model;
         $results = $query->find("location")->where(['desaId' => $desaId])->all();
 
-        $categories = empty(count($category)) ? array_keys(self::categories()) : $category;
-
         if ($results)
             foreach ($results as $result) {
 
-                if (in_array($result->categoryId, $categories)) {
+                if (in_array($result->categoryId, $category)) {
                     $color = 'image/' . self::$icons[$result->categoryId];
                     $image = $result->image;
                     $location = floatval($result->latitude) . ',' . floatval($result->longitude);

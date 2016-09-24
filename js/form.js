@@ -86,34 +86,36 @@ function goMap() {
 
             var marker, i;
 
-            for (i = 0; i < locations.length; i++) {
-                var pinColor = locations[i][5];
-                var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-                        new google.maps.Size(21, 34),
-                        new google.maps.Point(0, 0),
-                        new google.maps.Point(10, 34));
+            if (locations !== undefined) {
+                for (i = 0; i < locations.length; i++) {
+                    var pinColor = locations[i][5];
+                    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                            new google.maps.Size(21, 34),
+                            new google.maps.Point(0, 0),
+                            new google.maps.Point(10, 34));
 
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][2], locations[i][3]),
-                    map: map,
-                    icon: pinColor,
-                });
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+                        map: map,
+                        icon: pinColor,
+                    });
 
-                google.maps.event.addListener(marker, "click", (function (marker, i) {
-                    var contentString = '<div id="content">' +
-                            '<div id="siteNotice">' +
-                            '</div>' +
-                            '<h3 id="firstHeading" class="firstHeading">' + locations[i][0] + '</h3>' +
-                            '<div id="bodyContent">' +
-                            '<p>' + locations[i][1] + '</p>' +
-                            '<p><img width="120px" src="' + locations[i][6] + '"</p>' +
-                            '</div>' +
-                            '</div>';
-                    return function () {
-                        infowindow.setContent(contentString);
-                        infowindow.open(map, marker);
-                    }
-                })(marker, i));
+                    google.maps.event.addListener(marker, "click", (function (marker, i) {
+                        var contentString = '<div id="content">' +
+                                '<div id="siteNotice">' +
+                                '</div>' +
+                                '<h3 id="firstHeading" class="firstHeading">' + locations[i][0] + '</h3>' +
+                                '<div id="bodyContent">' +
+                                '<p>' + locations[i][1] + '</p>' +
+                                '<p><img width="120px" src="' + locations[i][6] + '"</p>' +
+                                '</div>' +
+                                '</div>';
+                        return function () {
+                            infowindow.setContent(contentString);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
             }
 
         }
@@ -121,12 +123,12 @@ function goMap() {
 }
 
 $("#kabupaten").on("change", function () {
-    
+
     kecamatan($(this).val());
 });
 
 $("#kecamatan").on("change", function () {
-    
+
     desa($(this).val());
 });
 
