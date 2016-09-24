@@ -2,6 +2,8 @@
 include 'Query.php';
 
 $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
+$applicationName = 'Infrastruktur BNPP';
+$imagePath = 'http://gis-admin.sintret.com/images/location/';
 ?>
 <html lang="en">
     <head>
@@ -13,7 +15,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Map foe Web App</title>
+        <title><?php echo $applicationName;?></title>
 
         <!-- Bootstrap core CSS -->
         <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +38,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Map Web App</a>
+                    <a class="navbar-brand" href="#"><?php echo $applicationName;?></a>
                 </div>
 
             </div>
@@ -100,7 +102,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" checked="" name="category" id="<?php echo $k; ?>" value="<?php echo $k; ?>"><?php echo $v; ?>
+                                                <input type="checkbox"   checked="" class="category" name="category" id="<?php echo $k; ?>" value="<?php echo $k; ?>"><?php echo $v; ?>
                                             </label>
                                         </div>
                                     </div>
@@ -121,7 +123,7 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
             <hr>
 
             <footer>
-                <p>© 2016 Company, Inc.</p>
+                <p>© 2016 <?php echo $applicationName;?></p>
             </footer>
         </div> <!-- /container -->
 
