@@ -68,11 +68,41 @@ class Model {
         if (count($array)) {
             $where = ' WHERE ';
             foreach ($array as $k => $v) {
-                $where .= $k . '= :' . $k;
+                $where .= ' `' . $k . '` = :' . $k;
             }
             $this->where = $where . ' ';
             $this->arrayWhere = $array;
         }
+
+        return $this;
+    }
+
+    public function andFilterWhere($array = [])
+    {
+        if ($array) {
+
+            $arrayWhere = [$array[1] => $array[2]];
+            $where = $this->where;
+            if (empty($where)) {
+
+                $where .= ' WHERE ';
+                $this->arrayWhere = $arrayWhere;
+                $where .= ' `' . $array[1] . '` ' . $array[0] . ' :' . $array[1];
+            } else {
+
+                $where .= ' AND ';
+                $this->arrayWhere = array_merge((array) $this->arrayWhere, (array) $arrayWhere);
+                $where .= ' `' . $array[1] . '` ' . $array[0] . ' :' . $array[1];
+            }
+
+            $this->where = $where;
+        }
+
+        return $this;
+    }
+
+    public function orFilterWhere($array = [])
+    {
 
         return $this;
     }
@@ -116,13 +146,8 @@ class Model {
     {
         $this->limit = " LIMIT 1 ";
         $row = $this->connect->prepare($this->statement());
-        if (count($this->arrayWhere)) {
-            foreach ($this->arrayWhere as $k => $v) {
-                $row->bindParam(":" . $k, $v);
-            }
-        }
-        $row->execute();
-
+        $row->execute($this->arrayWhere);
+        
         $this->isModel = true;
 
         return $row->fetch(\PDO::FETCH_OBJ);
@@ -131,12 +156,7 @@ class Model {
     public function all()
     {
         $row = $this->connect->prepare($this->statement());
-        if (count($this->arrayWhere)) {
-            foreach ($this->arrayWhere as $k => $v) {
-                $row->bindParam(":" . $k, $v);
-            }
-        }
-        $row->execute();
+        $row->execute($this->arrayWhere);
 
         $this->isModelArray = true;
 
@@ -151,6 +171,7 @@ class Model {
 
             $this->statement = "UPDATE " . $this->table . " SET " . $this->setFields . $this->where;
         } else {
+
             $statement = 'insert into `' . $this->table . '`  ';
             $statement .= "(" . implode(",", array_keys($this->_property)) . ")";
             $statement .= ' VALUES ';
@@ -158,7 +179,6 @@ class Model {
 
             $this->statement = $statement;
         }
-
 
         $array = array_merge((array) $this->_property, (array) $this->arrayWhere);
 
@@ -172,12 +192,19 @@ class Model {
 
     public function delete()
     {
-        if ($this->isModel || $this->isModelArray) {
-            $this->statement = "DELETE from " . $this->table . $this->where . $this->limit;
-            $query = $this->connect->prepare($this->statement);
+        $this->limit = " LIMIT 1 ";
+        $this->statement = "DELETE from " . $this->table . $this->where . $this->limit;
+        $query = $this->connect->prepare($this->statement);
 
-            $query->execute($this->arrayWhere);
-        }
+        return $query->execute($this->arrayWhere);
+    }
+
+    public function deleteAll()
+    {
+        $this->statement = "DELETE from " . $this->table . $this->where;
+        $query = $this->connect->prepare($this->statement);
+
+        return $query->execute($this->arrayWhere);
     }
 
 }
