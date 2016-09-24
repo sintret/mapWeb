@@ -12,23 +12,54 @@ include 'Db.php';
 
 class Model {
 
-    public $connect;
+    private $connect;
     public $statement;
     public $selectFrom;
+    public $insertInto;
+    public $setFields;
     public $where;
     public $limit;
     public $arrayWhere;
     public $orderBy;
+    public $create;
+    public $table;
+    public $_property = [];
+    public $isModel = false;
+    public $isModelArray = false;
 
     public function __construct()
     {
         return $this->connect = Db::instance();
     }
 
+    public function __set($key, $value)
+    {
+        if (!property_exists($this, $key)) {
+            $this->_property[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    public function __get($key)
+    {
+        if (!property_exists($this, $key)) {
+            return $this->_property->$key;
+        }
+    }
+
+    public function fields($array = [])
+    {
+        $this->_property = $array;
+
+        return $this;
+    }
+
     public function find($table)
     {
+        $this->table = $table;
         $this->selectFrom = "select * from `$table` ";
-        
+
         return $this;
     }
 
@@ -39,7 +70,6 @@ class Model {
             foreach ($array as $k => $v) {
                 $where .= $k . '= :' . $k;
             }
-
             $this->where = $where . ' ';
             $this->arrayWhere = $array;
         }
@@ -47,9 +77,11 @@ class Model {
         return $this;
     }
 
-    public function orderBy($orderBy)
+    public function orderBy($orderBy = NULL)
     {
-        $this->orderBy = ' order by '.$orderBy;
+        if (!empty($orderBy)) {
+            $this->orderBy = ' order by ' . $orderBy . ' ';
+        }
 
         return $this;
     }
@@ -59,6 +91,17 @@ class Model {
         $this->limit = " LIMIT " . $num . " ";
 
         return $this;
+    }
+
+    public function setFields()
+    {
+        $setFields = '';
+        if ($this->_property)
+            foreach ($this->_property as $k => $v) {
+                $setFields .= $k . " = :" . $k . ",";
+            }
+
+        $this->setFields = substr_replace($setFields, '', -1);
     }
 
     public function statement($statement = NULL)
@@ -80,6 +123,8 @@ class Model {
         }
         $row->execute();
 
+        $this->isModel = true;
+
         return $row->fetch(\PDO::FETCH_OBJ);
     }
 
@@ -93,7 +138,46 @@ class Model {
         }
         $row->execute();
 
+        $this->isModelArray = true;
+
         return $row->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public function save()
+    {
+        if ($this->isModel) {
+
+            $this->setFields();
+
+            $this->statement = "UPDATE " . $this->table . " SET " . $this->setFields . $this->where;
+        } else {
+            $statement = 'insert into `' . $this->table . '`  ';
+            $statement .= "(" . implode(",", array_keys($this->_property)) . ")";
+            $statement .= ' VALUES ';
+            $statement .= "(:" . implode(",:", array_keys($this->_property)) . ")";
+
+            $this->statement = $statement;
+        }
+
+
+        $array = array_merge((array) $this->_property, (array) $this->arrayWhere);
+
+        $query = $this->connect->prepare($this->statement);
+        $query->execute($array);
+
+        $this->_property = $this->find($this->table)->where(['id' => $this->connect->lastInsertId()])->one();
+
+        return $this;
+    }
+
+    public function delete()
+    {
+        if ($this->isModel || $this->isModelArray) {
+            $this->statement = "DELETE from " . $this->table . $this->where . $this->limit;
+            $query = $this->connect->prepare($this->statement);
+
+            $query->execute($this->arrayWhere);
+        }
     }
 
 }
