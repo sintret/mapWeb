@@ -4,7 +4,7 @@
  * @author : Andy Fitria
  * <sintret@gmail.com>
  * simple pdo class
- * https://sintret.com
+ * http://sintret.com
  */
 
 include 'Model.php';
@@ -62,6 +62,7 @@ class Query {
         $return = [];
         $query = new Model;
         $results = $query->find("location")->where(['desaId' => $desaId])->all();
+
         $categories = empty(count($category)) ? array_keys(self::categories()) : $category;
 
         if ($results)
@@ -69,20 +70,36 @@ class Query {
 
                 if (in_array($result->categoryId, $categories)) {
                     $color = 'image/' . self::$icons[$result->categoryId];
+                    $image = $result->image;
                     $location = floatval($result->latitude) . ',' . floatval($result->longitude);
-                    $return['markers'][] = [$result->name, "No Description", floatval($result->latitude), floatval($result->longitude), $num, $color, 'image/noimage.png'];
+                    $return['markers'][] = [$result->name, $result->description, floatval($result->latitude), floatval($result->longitude), $num, $color, self::resolvedImage($result->image)];
                     $return['contents'][] = ['<div class="info_content"><h3>' . $result->name . '</h3><p> No Description </p></div>'];
                     if ($result->latitude)
                         $lat = $result->latitude;
                     if ($result->longitude)
                         $lon = $result->longitude;
-                    $num++;
-                    $count++;
                 }
             }
 
+
+        $new = new Model;
+        $desa = $new->find('desa')->where(['id' => $desaId])->one();
+
+        $lat = empty($lat) ? $desa->latitude : $lat;
+        $lon = empty($lon) ? $desa->longitude : $lon;
         $return['lat'] = $lat;
         $return['lon'] = $lon;
+
+        return $return;
+    }
+
+    public static function resolvedImage($image = NULL)
+    {
+        $return = 'image/noimage.png';
+        if ($image) {
+            $path = 'http://gis-admin.sintret.com';
+            $return = str_replace('@web', $path, $image);
+        }
 
         return $return;
     }
