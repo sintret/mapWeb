@@ -67,10 +67,26 @@ class Query {
             foreach ($results as $result) {
 
                 if (in_array($result->categoryId, $category)) {
+                    $json = "";
+                    $m = null;
                     $color = 'image/' . self::$icons[$result->categoryId];
                     $image = $result->image;
+                    $m = new Model();
+                    $m->find('location_photo')->where(['locationId' => $result->id]);
+                    $models = $m->all();
+                    if ($models) {
+                        foreach ($models as $model) {
+                            $return['images'][$result->id][] = self::resolvedImage($model->image);
+                        }
+
+                        $return['images'][$result->id][] = self::resolvedImage($result->image);
+                        $json = implode("aaiiaa", $return['images'][$result->id]);
+                    }
+
+                    $return['id'] = $result->id;
+
                     $location = floatval($result->latitude) . ',' . floatval($result->longitude);
-                    $return['markers'][] = [$result->name, $result->description, floatval($result->latitude), floatval($result->longitude), $num, $color, self::resolvedImage($result->image)];
+                    $return['markers'][] = [$result->name, $result->description, floatval($result->latitude), floatval($result->longitude), $num, $color, $json];
                     $return['contents'][] = ['<div class="info_content"><h3>' . $result->name . '</h3><p> No Description </p></div>'];
                     if ($result->latitude)
                         $lat = $result->latitude;
@@ -93,10 +109,16 @@ class Query {
 
     public static function resolvedImage($image = NULL)
     {
-        $return = 'image/noimage.png';
+        //$return = 'image/noimage.png';
         if ($image) {
             $path = 'http://gis-admin.sintret.com';
             $return = str_replace('@web', $path, $image);
+
+            $basename = basename($return);
+
+
+            $return = str_replace($basename, 'thumb/' . $basename, $return);
+            $return = str_replace('/', 'iiuuii', $return);
         }
 
         return $return;

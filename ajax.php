@@ -62,5 +62,5 @@ function desa($kecamatanId)
 function location($desaId = NULL, $category = [])
 {
     if ($desaId)
-        echo json_encode(Query::locations($desaId, $category));
+        echo json_encode(Query::locations($desaId, $category), TRUE);
 }

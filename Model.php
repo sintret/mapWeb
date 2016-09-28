@@ -29,7 +29,7 @@ class Model {
 
     public function __construct()
     {
-        return $this->connect = Db::instance();
+       $this->connect = Db::instance();
     }
 
     public function __set($key, $value)

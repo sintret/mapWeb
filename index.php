@@ -4,6 +4,8 @@ include 'Query.php';
 $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
 $applicationName = 'Infrastruktur BNPP';
 $imagePath = 'http://gis-admin.sintret.com/images/location/';
+$imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
+
 ?>
 <html lang="en">
     <head>
@@ -38,7 +40,7 @@ $imagePath = 'http://gis-admin.sintret.com/images/location/';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><?php echo $applicationName;?></a>
+                    <a class="navbar-brand" href=""><?php echo $applicationName;?></a>
                 </div>
 
             </div>
@@ -71,7 +73,7 @@ $imagePath = 'http://gis-admin.sintret.com/images/location/';
                                 <label for="kecamatan">Kecamatan</label>
                                 <select id="kecamatan" class="form-control" data-url="ajax.php">
                                     <?php
-                                    $kecamatans = Query::kecamatans(6303);
+                                    $kecamatans = Query::kecamatans(9471045);
                                     if ($kecamatans)
                                         foreach ($kecamatans as $kecamatans) {
                                             ?>

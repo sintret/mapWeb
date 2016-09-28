@@ -61,6 +61,12 @@ function goMap() {
         categories.push($(this).val());
     });
 
+    if (desaId == null) {
+        goDefault();
+
+        return;
+    }
+
     $.ajax({
         url: url,
         type: "POST",
@@ -70,6 +76,12 @@ function goMap() {
             var locations = json.markers;
             var lat = json.lat;
             var lon = json.lon;
+
+            if (lat == null) {
+                goDefault();
+
+                return;
+            }
 
             //alert(JSON.stringify(json));
 
@@ -101,13 +113,35 @@ function goMap() {
                     });
 
                     google.maps.event.addListener(marker, "click", (function (marker, i) {
+
+                        var images = "";
+                        var re = new RegExp('iiuuii', 'g');
+                        var imagesLocation = locations[i][6];
+
+                        if (imagesLocation) {
+                            images += "<p>";
+
+                            var res = imagesLocation.split("aaiiaa");
+                            for (var t = 0; t < res.length; t++) {
+                                // var str = res[t];
+                                var c = res[t].replace(/iiuuii/g, '/');
+                                images += '<p><img width="120px" src="' + c + '"</p>';
+                            }
+
+                            console.log(res.length);
+                            images += "</p>";
+
+                        }
+
                         var contentString = '<div id="content">' +
                                 '<div id="siteNotice">' +
                                 '</div>' +
                                 '<h3 id="firstHeading" class="firstHeading">' + locations[i][0] + '</h3>' +
                                 '<div id="bodyContent">' +
                                 '<p>' + locations[i][1] + '</p>' +
-                                '<p><img width="120px" src="' + locations[i][6] + '"</p>' +
+                                images +
+                                // '<p><img width="120px" src="' + locations[i][6] + '"</p>' +
+                                //'<p>' +
                                 '</div>' +
                                 '</div>';
                         return function () {
@@ -120,6 +154,18 @@ function goMap() {
 
         }
     });
+}
+
+function goDefault() {
+    var lokasi = new google.maps.LatLng(parseFloat(-3.8494096), parseFloat(111.1584309));
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 5,
+        //center: {lat: parseFloat(lat), lng: parseFloat(lon)},
+        center: lokasi,
+        mapTypeId: 'terrain'
+    });
+
 }
 
 $("#kabupaten").on("change", function () {
