@@ -5,7 +5,6 @@ $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
 $applicationName = 'Infrastruktur BNPP';
 $imagePath = 'http://gis-admin.sintret.com/images/location/';
 $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
-
 ?>
 <html lang="en">
     <head>
@@ -17,7 +16,7 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title><?php echo $applicationName;?></title>
+        <title><?php echo $applicationName; ?></title>
 
         <!-- Bootstrap core CSS -->
         <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +39,7 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href=""><?php echo $applicationName;?></a>
+                    <a class="navbar-brand" href=""><?php echo $applicationName; ?></a>
                 </div>
 
             </div>
@@ -56,42 +55,26 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten</label>
                                 <select id="kabupaten" class="form-control" data-url="ajax.php">
+                                    <option value="0" selected="">Silahkan Pilih</option>
                                     <?php
                                     $kabupatens = Query::kabupatens();
-                                    $num = 1;
+
                                     if ($kabupatens)
                                         foreach ($kabupatens as $kabupaten) {
                                             ?>
-                                            <option value="<?php echo $kabupaten->id; ?>"  <?php if ($num == 1) echo "selected"; ?>><?php echo $kabupaten->name; ?></option>
+                                            <option value="<?php echo $kabupaten->id; ?>" ><?php echo $kabupaten->name; ?></option>
                                             <?php
-                                            $num++;
                                         }
                                     ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="kecamatan">Kecamatan</label>
-                                <select id="kecamatan" class="form-control" data-url="ajax.php">
-                                    <?php
-                                    $kecamatans = Query::kecamatans(9471045);
-                                    if ($kecamatans)
-                                        foreach ($kecamatans as $kecamatans) {
-                                            ?>
-                                            <option value="<?php echo $kecamatans->id; ?>"><?php echo $kecamatans->name; ?></option>
-                                        <?php } ?>
-                                </select>
+                                <select id="kecamatan" class="form-control" data-url="ajax.php"></select>
                             </div>
                             <div class="form-group">
                                 <label for="desa">Desa</label>
-                                <select id="desa" class="form-control" data-url="ajax.php">
-                                    <?php
-                                    $desas = Query::desas(6303010);
-                                    if ($desas)
-                                        foreach ($desas as $desa) {
-                                            ?>
-                                            <option value="<?php echo $desa->id; ?>"><?php echo $desa->name; ?></option>
-                                        <?php } ?>
-                                </select>
+                                <select id="desa" class="form-control" data-url="ajax.php"></select>
                             </div>
 
                             <p>
@@ -108,8 +91,10 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
                                             </label>
                                         </div>
                                     </div>
-                                <?php }
-                            } ?>
+                                <?php
+                                }
+                            }
+                            ?>
 
                             <button type="button" id="go" class="btn btn-success">Go!</button>
                         </form>
@@ -125,7 +110,7 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
             <hr>
 
             <footer>
-                <p>© 2016 <?php echo $applicationName;?></p>
+                <p>© 2016 <?php echo $applicationName; ?></p>
             </footer>
         </div> <!-- /container -->
 
@@ -135,7 +120,7 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
         <script src="js/jquery-3.1.0.min.js"></script>
         <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <script src="js/form.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $mapApi;?>&callback=goMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $mapApi; ?>&callback=goMap" async defer></script>
 
     </body>
 </html>

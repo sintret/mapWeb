@@ -115,7 +115,6 @@ function goMap() {
                     google.maps.event.addListener(marker, "click", (function (marker, i) {
 
                         var images = "";
-                        var re = new RegExp('iiuuii', 'g');
                         var imagesLocation = locations[i][6];
 
                         if (imagesLocation) {
@@ -123,9 +122,8 @@ function goMap() {
 
                             var res = imagesLocation.split("aaiiaa");
                             for (var t = 0; t < res.length; t++) {
-                                // var str = res[t];
                                 var c = res[t].replace(/iiuuii/g, '/');
-                                images += '<p><img width="120px" src="' + c + '"</p>';
+                                images += '<img width="120px" src="' + c + '"> ';
                             }
 
                             console.log(res.length);
@@ -183,4 +181,4 @@ $("#go").on("click", function () {
     goMap($("#desa").val());
 });
 
-window.onload = kecamatan(kabupatenId);
+//window.onload = kecamatan(kabupatenId);

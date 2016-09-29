@@ -79,7 +79,7 @@ class Query {
                             $return['images'][$result->id][] = self::resolvedImage($model->image);
                         }
 
-                        $return['images'][$result->id][] = self::resolvedImage($result->image);
+                        //$return['images'][$result->id][] = self::resolvedImage($result->image);
                         $json = implode("aaiiaa", $return['images'][$result->id]);
                     }
 
