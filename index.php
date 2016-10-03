@@ -3,8 +3,9 @@ include 'Query.php';
 
 $mapApi = 'AIzaSyCk5J7ptj3Bn3x2usoWQRuRYga9utdki5c';
 $applicationName = 'Infrastruktur BNPP';
-$imagePath = 'http://gis-admin.sintret.com/images/location/';
-$imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
+$backend = 'http://gis-admin.sintret.com';
+$imagePath = $backend . '/images/location/';
+$imagePathMultiple = $backend . '/images/locationpoto/';
 ?>
 <html lang="en">
     <head>
@@ -40,7 +41,11 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href=""><?php echo $applicationName; ?></a>
-                </div>
+
+                </div>                
+                    <ul class="nav navbar-nav navbar-right pull-right">
+                        <li><a class="btn btn-danger btn-sm" href="<?php echo $backend;?>">Login</a></li>
+                    </ul>
 
             </div>
         </nav>
@@ -58,7 +63,6 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
                                     <option value="0" selected="">Silahkan Pilih</option>
                                     <?php
                                     $kabupatens = Query::kabupatens();
-
                                     if ($kabupatens)
                                         foreach ($kabupatens as $kabupaten) {
                                             ?>
@@ -91,7 +95,7 @@ $imagePathMultiple = 'http://gis-admin.sintret.com/images/locationpoto/';
                                             </label>
                                         </div>
                                     </div>
-                                <?php
+                                    <?php
                                 }
                             }
                             ?>
